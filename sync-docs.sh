@@ -11,6 +11,7 @@ FE="$PARENT/fe-reader"
 
 ok()   { echo -e "  \033[32m✅ $1\033[0m"; }
 step() { echo -e "  \033[33m→ $1\033[0m"; }
+fail() { echo -e "  \033[31m❌ $1\033[0m"; exit 1; }
 
 echo -e "\n\033[36m📚 Sync docs từ reader-docs\033[0m"
 
@@ -20,7 +21,8 @@ cd "$ROOT"
 git add -A
 if [ -n "$(git status --porcelain)" ]; then
   git commit -m "$MSG"
-  git push
+  git pull --rebase || fail "Pull rebase thất bại, cần resolve conflicts thủ công"
+  git push || fail "Push thất bại"
   ok "reader-docs pushed"
 else
   ok "Không có thay đổi"
