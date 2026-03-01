@@ -51,33 +51,27 @@ export type { User, Story, Chapter } from '@/lib/types/story.types';
 
 ## 2. ESLint & Prettier
 
-### Cấu hình hiện tại
+### Cấu hình chung
 
-**ESLint** (`eslint.config.mjs`):
+**Quy tắc chung cho cả FE & BE:**
 
-- Extends: `next/core-web-vitals`, `next/typescript`, `prettier`
-- `@typescript-eslint/no-unused-vars`: `"warn"` (bỏ qua `_` prefix)
 - `@typescript-eslint/no-explicit-any`: `"error"` ← BẮT BUỘC
-- `prefer-const`: `"warn"`
+- `@typescript-eslint/no-unused-vars`: `"warn"` hoặc `"error"` (bỏ qua `_` prefix)
+- Prettier phải được chạy trước khi commit
 
-**Prettier** (`.prettierrc`):
+> Cấu hình chi tiết riêng cho từng project xem:
+> - FE: `.prettierrc`, `eslint.config.mjs` trong `fe-reader/`
+> - BE: `.be-document/CODING-STANDARDS.md` trong `be-reader/`
 
-- `semi`: true
-- `singleQuote`: true
-- `tabWidth`: 2
-- `trailingComma`: "es5"
-- `printWidth`: 100
-- `endOfLine`: "lf"
-- Plugin: `prettier-plugin-tailwindcss` (tự sắp xếp Tailwind classes)
+### ⚠️ BẮT BUỘC: Kiểm tra chất lượng SAU mỗi task
 
-### Trước khi commit
-
-```bash
-pnpm lint        # Kiểm tra ESLint
-pnpm lint:fix    # Tự fix ESLint
-pnpm format      # Format Prettier
-pnpm format:check # Kiểm tra format
-```
+> Sau khi hoàn thành bất kỳ task nào, **PHẢI** đảm bảo:
+> 1. ESLint: **0 errors** (`pnpm lint`)
+> 2. Prettier: **All files formatted** (`pnpm format`)
+> 3. TypeScript: **0 errors** (`pnpm typecheck`)
+> 4. Build: **Exit code 0** (`pnpm build`)
+>
+> **KHÔNG CHẤP NHẬN** bàn giao task khi còn lỗi. Nếu cần `eslint-disable`, phải ghi lý do rõ ràng.
 
 ---
 
@@ -201,7 +195,8 @@ export const storyService = {
 
   getById: (id: string) => api.get<ApiResponse<Story>>(`/stories/${id}`),
 
-  create: (data: CreateStoryInput) => api.post<ApiResponse<Story>>('/stories', data),
+  create: (data: CreateStoryInput) =>
+    api.post<ApiResponse<Story>>('/stories', data),
 
   update: (id: string, data: Partial<CreateStoryInput>) =>
     api.patch<ApiResponse<Story>>(`/stories/${id}`, data),
@@ -263,15 +258,15 @@ try { ... } catch (e: any) { ... }  // any trong catch
 
 ### Checklist cập nhật khi thay đổi code
 
-| Khi...                       | Cập nhật...                                   |
-| ---------------------------- | --------------------------------------------- |
-| Tạo component dùng chung mới | `REUSABLE-COMPONENTS.md`                      |
-| Thêm file/folder mới         | `FOLDER-STRUCTURE.md` (nếu khác pattern)      |
-| Thêm dependency mới          | `ARCHITECTURE.md` (Tech Stack)                |
-| Thay đổi API endpoint        | Types trong `lib/types/`, Services            |
-| Thêm Zod schema              | `lib/validations/` + `REUSABLE-COMPONENTS.md` |
-| Tạo hook mới dùng chung      | `REUSABLE-COMPONENTS.md`                      |
-| Thay đổi folder structure    | `FOLDER-STRUCTURE.md`                         |
+| Khi...                       | Cập nhật...                                                    |
+| ---------------------------- | -------------------------------------------------------------- |
+| Tạo component/module chung   | `REUSABLE-COMPONENTS.md` (FE) hoặc `REUSABLE-MODULES.md` (BE) |
+| Thêm file/folder mới         | `FOLDER-STRUCTURE.md` (nếu khác pattern)                       |
+| Thêm dependency mới          | `ARCHITECTURE.md` (Tech Stack)                                 |
+| Thay đổi API endpoint        | Types + Services                                               |
+| Thay đổi folder structure    | `FOLDER-STRUCTURE.md`                                          |
+
+> Chi tiết post-task checklist: xem `CHECKLIST-TEMPLATES.md` hoặc `be-document/CHECKLIST-TEMPLATES.md`
 
 ---
 
