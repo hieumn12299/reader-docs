@@ -22,6 +22,7 @@ git submodule update --init --recursive
 | `CHECKLIST-TEMPLATES.md` | Templates checklist (pre-code, post-code, deploy, security) |
 | `TESTING-GUIDE.md`       | Testing strategy, test case templates                       |
 | `API-REFERENCE.md`       | BE API endpoints, request/response formats, enums           |
+| `DATABASE-SETUP.md`      | Setup MySQL Docker + MySQL Workbench + Prisma               |
 | `PLAN-story-platform.md` | Master roadmap                                              |
 
 ## Project-specific docs
