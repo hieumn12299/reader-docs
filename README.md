@@ -21,6 +21,7 @@ git submodule update --init --recursive
 | `WORKFLOW-GUIDE.md`      | Quy trình 5 phases cho mọi task                             |
 | `CHECKLIST-TEMPLATES.md` | Templates checklist (pre-code, post-code, deploy, security) |
 | `TESTING-GUIDE.md`       | Testing strategy, test case templates                       |
+| `API-REFERENCE.md`       | BE API endpoints, request/response formats, enums           |
 | `PLAN-story-platform.md` | Master roadmap                                              |
 
 ## Project-specific docs
